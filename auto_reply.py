@@ -17,12 +17,17 @@ remarkname = u'慎终如始'
 #print(data[remarkname])
 itchat.send_msg(msg='fuck', toUserName=None)
 '''
+former_user = ""
 @itchat.msg_register([TEXT, PICTURE, MAP, CARD, NOTE, SHARING, RECORDING, ATTACHMENT, VIDEO])
 def auto_reply(msg):
-    friend = itchat.search_friends(userName=msg['FromUserName'])
+    current_from = msg["FromUserName"]
+    friend = itchat.search_friends(userName=current_from)
 #    itchat.send("Message at %s has been received, I will reply to you later. --itchat python" % time.ctime(), toUserName='filehelper')
-     
-    itchat.send("Message at %s has been received, I will reply to you later. ahaha" % time.ctime(), toUserName=msg['FromUserName'])
+    if former_user == current_from:
+        pass
+    else:
+        former_user = current_from
+        itchat.send("Message at %s has been received, I will reply to you later. ahaha" % time.ctime(), toUserName=current_from)
 
 
 itchat.auto_login(hotReload=True)
